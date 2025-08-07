@@ -46,10 +46,7 @@ export default function Dashboard() {
               </button>
               <button
                 onClick={async () => {
-                  await deleteDoc(doc(db, "categories", deleteId));
-                  setCategories(
-                    categories.filter((cat) => cat.id !== deleteId)
-                  );
+                  deleteCategory(deleteId);
                   setShowModal(false);
                 }}
                 className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded cursor-pointer"
