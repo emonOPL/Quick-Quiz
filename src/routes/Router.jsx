@@ -7,11 +7,18 @@ import QuestionsList from "../Admin/QuestionsList";
 import AddQuestion from "../Admin/AddQuestion";
 import EditCategory from "../Admin/EditCategory";
 import EditQuestion from "../Admin/EditQuestion";
+import Home from "../Pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+    ],
   },
   {
     path: "/admin",

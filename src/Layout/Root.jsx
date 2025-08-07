@@ -4,9 +4,11 @@ import { Outlet } from "react-router";
 
 export default function Root() {
   return (
-    <div>
+    <div className="min-h-screen bg-[#E5E5E5] text-black">
       <Navbar />
-      <Outlet />
+      <div className="p-5">
+        <Outlet />
+      </div>
     </div>
   );
 }
