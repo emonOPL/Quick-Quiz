@@ -9,7 +9,7 @@ export default function Navbar() {
         <div className="flex-1">
           <Link to="/">
             <div className="w-10 rounded-full">
-              <img alt="logo" src="./Logo.png" />
+              <img alt="logo" src="/Logo.png" />
             </div>
           </Link>
         </div>
