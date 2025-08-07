@@ -17,6 +17,7 @@ export default function QuestionsList() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const categoryId = id;
 
@@ -36,19 +37,20 @@ export default function QuestionsList() {
         collection(db, "categories", categoryId, "questions")
       );
       const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setQuestions(data);
+      const filteredData = data.filter((d) =>
+        d.question.toLowerCase().includes(searchQuery)
+      );
+      setQuestions(filteredData);
       setLoading(false);
     };
     fetchCategory();
     fetchData();
-  }, [categoryId]);
+  }, [categoryId, searchQuery]);
 
   const deleteQuestion = async (id) => {
     await deleteDoc(doc(db, "categories", categoryId, "questions", id));
     setQuestions(questions.filter((question) => question.id !== id));
   };
-
-  console.log(questions);
 
   return (
     <div className="container mx-auto">
@@ -81,6 +83,40 @@ export default function QuestionsList() {
           </div>
         </div>
       )}
+
+      <div className="flex justify-center sm:justify-between items-center mb-5 flex-wrap gap-5">
+        <button
+          onClick={() => navigate("/admin")}
+          className="bg-[#FCA311] text-white py-2 px-4 rounded-md border border-[#FCA311] hover:bg-black hover:text-[#FCA311] cursor-pointer"
+        >
+          ← Dashboard
+        </button>
+        <div>
+          <label className="input border border-[#FCA311]">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input
+              type="search"
+              placeholder="Search"
+              onKeyUp={(e) => setSearchQuery(e.target.value)}
+            />
+          </label>
+        </div>
+      </div>
 
       <div className="flex justify-between items-center mb-5">
         <h2 className="text-2xl font-bold text-[#FCA311]">{categoryName}</h2>

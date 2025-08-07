@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 export default function Navbar() {
   return (
-    <div className="sticky top-0">
+    <div className="sticky top-0 z-9999">
       <div className="navbar bg-white shadow-sm text-black">
         <div className="flex-1">
           <Link to="/">

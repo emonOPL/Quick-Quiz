@@ -9,17 +9,21 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       const snapshot = await getDocs(collection(db, "categories"));
       const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setCategories(list);
+      const filteredCategories = list.filter((category) =>
+        category.name.toLowerCase().includes(searchQuery)
+      );
+      setCategories(filteredCategories);
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [searchQuery]);
 
   const deleteCategory = async (id) => {
     await deleteDoc(doc(db, "categories", id));
@@ -57,6 +61,32 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      <div className="text-center mb-5">
+        <label className="input border border-[#FCA311]">
+          <svg
+            className="h-[1em] opacity-50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <g
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
+          <input
+            type="search"
+            placeholder="Search"
+            onKeyUp={(e) => setSearchQuery(e.target.value)}
+          />
+        </label>
+      </div>
 
       <div className="flex justify-between items-center mb-5">
         <h2 className="text-2xl font-bold text-[#FCA311]">Categories</h2>

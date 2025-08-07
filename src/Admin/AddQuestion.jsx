@@ -2,6 +2,7 @@ import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { db } from "../firebase/firebase.config";
+import { Link } from "react-router";
 
 export default function AddQuestion() {
   const { id } = useParams();
@@ -94,12 +95,20 @@ export default function AddQuestion() {
               Enter a number between 1 and 4
             </p>
           </div>
-          <button
-            type="submit"
-            className="bg-[#FCA311] text-white py-2 px-4 rounded-md text-lg border border-[#FCA311] hover:bg-black hover:text-[#FCA311] cursor-pointer w-full md:w-1/3 lg:w-1/5 mx-auto"
-          >
-            Add
-          </button>
+          <div className="flex justify-center sm:justify-evenly items-center gap-4 flex-wrap">
+            <button
+              type="submit"
+              className="bg-[#FCA311] text-white py-2 px-4 rounded-md text-lg border border-[#FCA311] hover:bg-black hover:text-[#FCA311] cursor-pointer"
+            >
+              Add
+            </button>
+            <Link
+              to={"/admin/questions/" + categoryId}
+              className="bg-[#E5E5E5] text-black py-2 px-4 rounded-md text-lg border border-[#E5E5E5] hover:bg-black hover:text-[#E5E5E5] cursor-pointer"
+            >
+              Back
+            </Link>
+          </div>
         </form>
       </div>
     </div>
