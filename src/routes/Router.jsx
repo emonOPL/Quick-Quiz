@@ -8,6 +8,8 @@ import AddQuestion from "../Admin/AddQuestion";
 import EditCategory from "../Admin/EditCategory";
 import EditQuestion from "../Admin/EditQuestion";
 import Home from "../Pages/Home";
+import Registration from "../Pages/Registration";
+import Login from "../Pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: "register",
+        Component: Registration,
+      },
+      {
+        path: "login",
+        Component: Login,
       },
     ],
   },
