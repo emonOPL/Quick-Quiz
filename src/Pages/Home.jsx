@@ -58,7 +58,7 @@ export default function Home() {
 
       {loading && <Loading />}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {categories.map((cat) => (
           <div
             key={cat.id}
@@ -74,6 +74,10 @@ export default function Home() {
                 alt={cat.name}
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
+            </div>
+            <div className="w-full flex justify-between items-center gap-2">
+              <p className="font-semibold opacity-50">10 Questions</p>
+              <p className="font-semibold opacity-50">Score: Not taken yet</p>
             </div>
           </div>
         ))}

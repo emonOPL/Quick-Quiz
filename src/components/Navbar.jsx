@@ -17,12 +17,12 @@ export default function Navbar() {
           <Link to="/" className="text-xl hover:underline">
             User
           </Link>
-          <Link to={"/auth/login"} className="text-2xl">
+          <Link to={"/login"} className="text-2xl">
             <span title="Login">
               <AiOutlineLogin />
             </span>
           </Link>
-          <Link to={"/auth/logout"} className="text-2xl">
+          <Link to={"/logout"} className="text-2xl">
             <span title="Logout">
               <AiOutlineLogout />
             </span>

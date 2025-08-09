@@ -17,7 +17,7 @@ export default function Quiz() {
           value="70"
           max="100"
         ></progress>
-        <button className="btn bg-[#264653] border-none flex items-center gap-2">
+        <button className="btn bg-[#2A9D8F] border-none flex items-center gap-2">
           <p className="text-lg">Next Question</p>
           <FaArrowRightLong size={20} />
         </button>

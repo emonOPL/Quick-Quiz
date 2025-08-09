@@ -11,6 +11,7 @@ import Home from "../Pages/Home";
 import Registration from "../Pages/Registration";
 import Login from "../Pages/Login";
 import Quiz from "../Pages/Quiz";
+import Result from "../Pages/Result";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "quiz/:categoryId",
         Component: Quiz,
+      },
+      {
+        path: "result",
+        Component: Result,
       },
     ],
   },
