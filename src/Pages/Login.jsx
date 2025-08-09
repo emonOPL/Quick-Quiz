@@ -1,22 +1,52 @@
 import React, { useState } from "react";
 import LoginImage from "../assets/login.jpg";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Google from "../assets/google.webp";
 import { useAuth } from "../context/AuthContext";
+import { Bounce, toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
+  const navigate = useNavigate();
   const { setUser, signIn } = useAuth();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    signIn(email, password, remember).then((user) => {
-      setUser(user.user);
-    });
+    signIn(email, password, remember)
+      .then((user) => {
+        setUser(user.user);
+        toast.success("Successfully logged in", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
   };
 
   return (
@@ -35,7 +65,7 @@ export default function Login() {
                 type="email"
                 className="border border-[#2A9D8F] rounded p-2 validator w-full col-span-5 md:col-span-3"
                 required
-                placeholder="Enter Eamil"
+                placeholder="Enter Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <p className="validator-hint mt-0 col-span-5 md:col-span-1">

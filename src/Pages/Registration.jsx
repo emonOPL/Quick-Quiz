@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Register from "../assets/register.jpg";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Google from "../assets/google.webp";
+import { useAuth } from "../context/AuthContext";
+import { Bounce, toast } from "react-toastify";
 
 export default function Registration() {
   const [name, setName] = useState("");
@@ -9,6 +11,9 @@ export default function Registration() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+  const { setUser, createUser, updateUserData } = useAuth();
 
   const handleConfirmPasswordChange = (e) => {
     const value = e.target.value;
@@ -27,10 +32,38 @@ export default function Registration() {
       return;
     }
 
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
+    createUser(email, password)
+      .then((user) => {
+        setUser(user.user);
+        toast.success("Registration successful", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+        updateUserData(name);
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
   };
 
   return (
