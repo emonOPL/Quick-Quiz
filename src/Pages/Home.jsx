@@ -65,7 +65,7 @@ export default function Home() {
             className="border border-[#14213D] rounded-lg p-5 bg-white hover:bg-[#14213D] hover:text-white hover:border-white flex flex-col justify-between items-center"
           >
             <div
-              onClick={() => navigate(`/admin/questions/${cat.id}`)}
+              onClick={() => navigate(`/quiz/${cat.id}`)}
               className="cursor-pointer"
             >
               <h3 className="text-lg font-bold text-center mb-2">{cat.name}</h3>
