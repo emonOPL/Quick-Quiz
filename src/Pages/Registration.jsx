@@ -13,7 +13,7 @@ export default function Registration() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-  const { setUser, createUser, updateUserData } = useAuth();
+  const { setUser, createUser, updateUserData, googleSignIn } = useAuth();
 
   const handleConfirmPasswordChange = (e) => {
     const value = e.target.value;
@@ -33,11 +33,46 @@ export default function Registration() {
     }
 
     createUser(email, password)
+      .then((userCredential) => {
+        const createdUser = userCredential.user;
+        return updateUserData(name).then(() => {
+          setUser({ ...createdUser, displayName: name });
+          toast.success("Registration successful", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+          navigate("/");
+        });
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleSignIn()
       .then((user) => {
         setUser(user.user);
-        toast.success("Registration successful", {
+        toast.success("Successfully registered", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -48,13 +83,12 @@ export default function Registration() {
         });
         setTimeout(() => {
           navigate("/");
-        }, 1000);
-        updateUserData(name);
+        }, 0);
       })
       .catch((error) => {
         toast.error(error.message, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -181,7 +215,10 @@ export default function Registration() {
 
           <progress className="progress h-0.5"></progress>
 
-          <div className="w-full flex justify-between items-center border border-[#2A9D8F] rounded-full p-2 cursor-pointer mt-4 hover:bg-[#2A9D8F]">
+          <div
+            className="w-full flex justify-between items-center border border-[#2A9D8F] rounded-full p-2 cursor-pointer mt-4 hover:bg-[#2A9D8F]"
+            onClick={handleGoogleLogin}
+          >
             <img src={Google} alt="Google" className="w-8 h-8 rounded-full" />
             <p className="font-semibold">Continue with Google</p>
             <span></span>

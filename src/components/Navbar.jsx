@@ -1,12 +1,46 @@
 import React from "react";
 import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import LoginImage from "../assets/login.webp";
 import LogoutImage from "../assets/logout.webp";
+import { Bounce, toast } from "react-toastify";
 
 export default function Navbar() {
-  const { user } = useAuth();
+  const { user, setUser, logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        setUser(null);
+        toast.success("Successfully logged out", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        navigate("/login");
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
+  };
 
   return (
     <div className="sticky top-0 z-9999 bg-white shadow-sm">
@@ -29,15 +63,15 @@ export default function Navbar() {
             </Link>
           </p>
           {user ? (
-            <Link to={"/logout"} className="text-2xl">
+            <div onClick={handleLogout} className="text-2xl">
               <span title="Logout">
                 <img
                   src={LogoutImage}
-                  alt="Login"
-                  className="w-10 h-10 rounded-full"
+                  alt="Logout"
+                  className="w-10 h-10 rounded-full cursor-pointer"
                 />
               </span>
-            </Link>
+            </div>
           ) : (
             <Link to={"/login"} className="text-2xl">
               <span title="Login">

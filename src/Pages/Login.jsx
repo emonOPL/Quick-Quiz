@@ -11,7 +11,7 @@ export default function Login() {
   const [remember, setRemember] = useState(false);
 
   const navigate = useNavigate();
-  const { setUser, signIn } = useAuth();
+  const { setUser, signIn, googleSignIn } = useAuth();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ export default function Login() {
         setUser(user.user);
         toast.success("Successfully logged in", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -32,12 +32,46 @@ export default function Login() {
         });
         setTimeout(() => {
           navigate("/");
-        }, 1000);
+        }, 0);
       })
       .catch((error) => {
         toast.error(error.message, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleSignIn()
+      .then((user) => {
+        setUser(user.user);
+        toast.success("Successfully logged in", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 0);
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -127,7 +161,10 @@ export default function Login() {
 
           <progress className="progress h-0.5"></progress>
 
-          <div className="w-full flex justify-between items-center border border-[#2A9D8F] rounded-full p-2 cursor-pointer mt-4 hover:bg-[#2A9D8F]">
+          <div
+            className="w-full flex justify-between items-center border border-[#2A9D8F] rounded-full p-2 cursor-pointer mt-4 hover:bg-[#2A9D8F]"
+            onClick={handleGoogleLogin}
+          >
             <img src={Google} alt="Google" className="w-8 h-8 rounded-full" />
             <p className="font-semibold">Continue with Google</p>
             <span></span>

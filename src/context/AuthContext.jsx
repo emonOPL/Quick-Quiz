@@ -4,10 +4,12 @@ import {
   browserLocalPersistence,
   browserSessionPersistence,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   setPersistence,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -15,6 +17,7 @@ import {
 const AuthContext = createContext();
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -37,12 +40,19 @@ const AuthProvider = ({ children }) => {
   };
 
   const updateUserData = (name) => {
+    setLoading(true);
     return updateProfile(auth.currentUser, {
       displayName: name,
     });
   };
 
+  const googleSignIn = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
+
   const resetPassword = (email) => {
+    setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
 
@@ -67,6 +77,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     updateUserData,
     signIn,
+    googleSignIn,
     resetPassword,
     logOut,
     loading,
