@@ -12,6 +12,7 @@ import Registration from "../Pages/Registration";
 import Login from "../Pages/Login";
 import Quiz from "../Pages/Quiz";
 import Result from "../Pages/Result";
+import ForgotPassword from "../Pages/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         Component: Login,
+      },
+      {
+        path: "forgot-password",
+        Component: ForgotPassword,
       },
       {
         path: "quiz/:categoryId",
