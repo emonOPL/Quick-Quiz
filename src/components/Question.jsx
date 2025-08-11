@@ -1,25 +1,22 @@
 import React, { useState } from "react";
 
-export default function Question() {
-  const [answer, setAnswer] = useState("");
+export default function Question({ question }) {
+  const [answer, setAnswer] = useState(null);
 
   const handleAnswerChange = (e) => {
-    setAnswer(e.target.value);
-    console.log("Selected Answer:", e.target.value);
+    setAnswer(parseInt(e.target.value));
   };
 
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-2">
-        What is the name of the capital of Bangladesh?
-      </h1>
+      <h1 className="text-4xl font-bold mb-2">{question.question}</h1>
       <p className="mb-2 text-gray-500 font-semibold">
         Choose the correct answer
       </p>
       <hr className="border border-gray-300 mb-3" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {["Dhaka", "Chittagong", "Khulna", "Rajshahi"].map((option, index) => (
+        {question.options.map((option, index) => (
           <label
             key={index}
             className="border border-gray-300 p-5 rounded bg-[#264653] text-white font-bold flex items-center gap-2 cursor-pointer"
