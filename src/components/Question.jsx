@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Question({ question }) {
+export default function Question({ question, index, answerObj }) {
   const [answer, setAnswer] = useState(null);
 
   const handleAnswerChange = (e) => {

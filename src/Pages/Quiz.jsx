@@ -65,7 +65,7 @@ export default function Quiz() {
             {categoryName}
           </h1>
         )}
-        {question && <Question question={question} index={index} />}
+        {question && <Question question={question} />}
       </div>
       <div className="fixed bottom-2.5 left-1/2 transform -translate-x-1/2 container border-2 border-gray-300 rounded-lg p-2 bg-white flex justify-between items-center gap-2">
         <button
