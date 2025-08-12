@@ -14,6 +14,8 @@ import Quiz from "../Pages/Quiz";
 import Result from "../Pages/Result";
 import ForgotPassword from "../Pages/ForgotPassword";
 import PrivateRoute from "../provider/PrivateRoute";
+import PublicRoute from "../provider/PublicRoute";
+import AdminRoute from "../provider/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -26,15 +28,27 @@ const router = createBrowserRouter([
       },
       {
         path: "register",
-        Component: Registration,
+        element: (
+          <PublicRoute>
+            <Registration />
+          </PublicRoute>
+        ),
       },
       {
         path: "login",
-        Component: Login,
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
       },
       {
         path: "forgot-password",
-        Component: ForgotPassword,
+        element: (
+          <PublicRoute>
+            <ForgotPassword />
+          </PublicRoute>
+        ),
       },
       {
         path: "quiz/:categoryId",
@@ -56,7 +70,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <AdminRoute>
+        <Admin />
+      </AdminRoute>
+    ),
     children: [
       {
         index: true,
