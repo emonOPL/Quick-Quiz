@@ -16,6 +16,7 @@ import ForgotPassword from "../Pages/ForgotPassword";
 import PrivateRoute from "../provider/PrivateRoute";
 import PublicRoute from "../provider/PublicRoute";
 import AdminRoute from "../provider/AdminRoute";
+import NotFound from "../Pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
         Component: EditQuestion,
       },
     ],
+  },
+  {
+    path: "*",
+    Component: NotFound,
   },
 ]);
 export default router;
