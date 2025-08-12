@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Question from "../components/Question";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
-import { useParams } from "react-router";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { useNavigate, useParams } from "react-router";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase.config";
 import Loading from "../components/Loading";
+import { useAuth } from "../context/AuthContext";
 
 export default function Quiz() {
   const { categoryId } = useParams();
@@ -13,6 +14,8 @@ export default function Quiz() {
   const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
   const [question, setQuestion] = useState(null);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -40,8 +43,10 @@ export default function Quiz() {
       );
 
       const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
-      const selected = getRandomItems(data, 10);
+      const selected = getRandomItems(data, 10).map((q) => ({
+        ...q,
+        userAnswer: null,
+      }));
 
       setQuestions(selected);
       setLoading(false);
@@ -55,6 +60,21 @@ export default function Quiz() {
     setQuestion(questions[index]);
   }, [index, questions]);
 
+  const handleAnswer = (questionId, answerIndex) => {
+    setQuestions((prev) =>
+      prev.map((q) =>
+        q.id === questionId ? { ...q, userAnswer: answerIndex } : q
+      )
+    );
+  };
+
+  const handleSubmit = async () => {
+    await setDoc(doc(db, "results", user.uid, categoryId, "data"), {
+      questions,
+    });
+    navigate(`/result/${categoryId}`, { state: { questions } });
+  };
+
   return (
     <>
       <div className="container mx-auto">
@@ -65,7 +85,7 @@ export default function Quiz() {
             {categoryName}
           </h1>
         )}
-        {question && <Question question={question} />}
+        {question && <Question question={question} onAnswer={handleAnswer} />}
       </div>
       <div className="fixed bottom-2.5 left-1/2 transform -translate-x-1/2 container border-2 border-gray-300 rounded-lg p-2 bg-white flex justify-between items-center gap-2">
         <button
@@ -82,7 +102,9 @@ export default function Quiz() {
         ></progress>
         <button
           className="btn bg-[#2A9D8F] border-none flex items-center gap-2"
-          onClick={() => setIndex(Math.min(index + 1, 9))}
+          onClick={() =>
+            index === 9 ? handleSubmit() : setIndex(Math.min(index + 1, 9))
+          }
         >
           <p className="text-lg">{index === 9 ? "Submit" : "Next Question"}</p>
           <FaArrowRightLong

@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function Question({ question, index, answerObj }) {
-  const [answer, setAnswer] = useState(null);
-
-  const handleAnswerChange = (e) => {
-    setAnswer(parseInt(e.target.value));
-  };
-
+export default function Question({ question, onAnswer }) {
   return (
     <div>
       <h1 className="text-4xl font-bold mb-2">{question.question}</h1>
@@ -23,10 +17,10 @@ export default function Question({ question, index, answerObj }) {
           >
             <input
               type="radio"
-              name="index"
+              name={question.id}
               value={index}
-              checked={parseInt(answer) === index}
-              onChange={handleAnswerChange}
+              checked={question.userAnswer === index}
+              onChange={() => onAnswer(question.id, index)}
               className="radio bg-blue-100 border-blue-300 checked:bg-blue-200 checked:text-blue-600 checked:border-blue-600"
             />
             <span>{option}</span>

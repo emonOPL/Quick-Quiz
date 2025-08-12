@@ -13,6 +13,7 @@ import Login from "../Pages/Login";
 import Quiz from "../Pages/Quiz";
 import Result from "../Pages/Result";
 import ForgotPassword from "../Pages/ForgotPassword";
+import PrivateRoute from "../provider/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -37,11 +38,19 @@ const router = createBrowserRouter([
       },
       {
         path: "quiz/:categoryId",
-        Component: Quiz,
+        element: (
+          <PrivateRoute>
+            <Quiz />
+          </PrivateRoute>
+        ),
       },
       {
-        path: "result",
-        Component: Result,
+        path: "result/:categoryId",
+        element: (
+          <PrivateRoute>
+            <Result />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LoginImage from "../assets/login.jpg";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Google from "../assets/google.webp";
 import { useAuth } from "../context/AuthContext";
 import { Bounce, toast } from "react-toastify";
@@ -11,6 +11,7 @@ export default function Login() {
   const [remember, setRemember] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { setUser, signIn, googleSignIn } = useAuth();
 
   const handleFormSubmit = (e) => {
@@ -65,7 +66,7 @@ export default function Login() {
           transition: Bounce,
         });
         setTimeout(() => {
-          navigate("/");
+          navigate(location.state?.from?.pathname || "/");
         }, 0);
       })
       .catch((error) => {
