@@ -1,14 +1,13 @@
 import { collection, getDocs } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
 import { db } from "../firebase/firebase.config";
 import Loading from "../components/Loading";
+import Category from "../components/Category";
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,26 +59,7 @@ export default function Home() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {categories.map((cat) => (
-          <div
-            key={cat.id}
-            className="border border-[#14213D] rounded-lg p-5 bg-white hover:bg-[#14213D] hover:text-white hover:border-white flex flex-col justify-between items-center"
-          >
-            <div
-              onClick={() => navigate(`/quiz/${cat.id}`)}
-              className="cursor-pointer"
-            >
-              <h3 className="text-lg font-bold text-center mb-2">{cat.name}</h3>
-              <img
-                src={cat.imgUrl}
-                alt={cat.name}
-                className="w-full h-48 object-cover rounded-lg mb-4"
-              />
-            </div>
-            <div className="w-full flex justify-between items-center gap-2">
-              <p className="font-semibold opacity-50">10 Questions</p>
-              <p className="font-semibold opacity-50">Score: Not taken yet</p>
-            </div>
-          </div>
+          <Category key={cat.id} cat={cat} />
         ))}
       </div>
     </div>
