@@ -1,12 +1,53 @@
-# React + Vite
+# Quick Quiz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Test Your Dev Power: The Ultimate Skill Check for Front-End, Back-End & Full-Stack Engineers**
 
-Currently, two official plugins are available:
+Quick Quiz is an interactive quiz platform designed to help developers test and measure their skills in various web development domains.  
+Users can sign up, log in, search for their favorite topics, take quizzes, and instantly view detailed results.  
+Admins can manage quiz categories and questions through a dedicated admin panel.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Live Demo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+[**Quick Quiz - Live Site**](https://quick-quiz-f4f26.web.app/)
+
+---
+
+## 📌 Features
+
+### 🔹 User Features
+
+- **Authentication** – Sign up, log in, and log out using Firebase Authentication.
+- **Category Search** – Search and explore quiz topics easily.
+- **Take Quizzes** – Choose from various categories, answer multiple-choice questions, and submit.
+- **Instant Results** – View your score, see correct and incorrect answers after every quiz.
+- **Responsive Design** – Fully optimized for desktop and mobile using Tailwind CSS.
+
+### 🔹 Admin Features
+
+- **Category Management** – Add, update, delete categories with images.
+- **Question Management** – Add, edit, delete quiz questions per category.
+- **Secure Admin Access** – Admin routes protected via authentication checks.
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+
+- React
+- React Router
+- Tailwind CSS
+- React Toastify
+
+**Backend & Database:**
+
+- Firebase Authentication
+- Firebase Firestore
+
+**Hosting:**
+
+- Firebase Hosting
+
+---
