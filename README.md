@@ -51,3 +51,24 @@ Admins can manage quiz categories and questions through a dedicated admin panel.
 - Firebase Hosting
 
 ---
+
+## 📸 Screenshots
+
+### User Dashboard
+
+![Home Page](screenshots/home.png)
+![Quiz Page](screenshots/quiz.png)
+![Result Page](screenshots/result.png)
+
+### Admin Dashboard
+
+![Admin Panel](screenshots/admin.png)
+![Add Category](screenshots/category.png)
+![Questions Page](screenshots/questions.png)
+![Add Question](screenshots/add-question.png)
+
+### Authentication
+
+![Login Page](screenshots/login.png)
+![Registration Page](screenshots/registration.png)
+![Forgot Password Page](screenshots/reset-password.png)
