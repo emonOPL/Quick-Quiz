@@ -142,7 +142,7 @@ export default function Registration() {
                 type="email"
                 className="border border-[#2A9D8F] rounded p-2 validator w-full col-span-5 md:col-span-3"
                 required
-                placeholder="Enter Eamil"
+                placeholder="Enter Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <p className="validator-hint mt-0 col-span-5 md:col-span-1">
@@ -159,7 +159,7 @@ export default function Registration() {
                 required
                 placeholder="Enter Password"
                 minLength="6"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                 title="Must be more than 6 characters, including number, lowercase letter, uppercase letter"
                 onChange={(e) => setPassword(e.target.value)}
               />

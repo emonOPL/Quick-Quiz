@@ -4,11 +4,13 @@ import { Link, useLocation, useNavigate } from "react-router";
 import Google from "../assets/google.webp";
 import { useAuth } from "../context/AuthContext";
 import { Bounce, toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -111,16 +113,31 @@ export default function Login() {
               <label className="block font-semibold md:text-right col-span-5 md:col-span-1">
                 Password:
               </label>
-              <input
-                type="password"
-                className="border border-[#2A9D8F] rounded p-2 validator w-full col-span-5 md:col-span-3"
-                required
-                placeholder="Enter Password"
-                minLength="6"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must be more than 6 characters, including number, lowercase letter, uppercase letter"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative w-full col-span-5 md:col-span-3 validator">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="border border-[#2A9D8F] rounded p-2 validator w-full"
+                  required
+                  placeholder="Enter Password"
+                  minLength="6"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                  title="Must be more than 6 characters, including number, lowercase letter, uppercase letter"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {showPassword ? (
+                  <FaEyeSlash
+                    size={20}
+                    className="absolute top-1/2 right-2 transform -translate-y-1/2 cursor-pointer"
+                    onClick={() => setShowPassword(false)}
+                  />
+                ) : (
+                  <FaEye
+                    size={20}
+                    className="absolute top-1/2 right-2 transform -translate-y-1/2 cursor-pointer"
+                    onClick={() => setShowPassword(true)}
+                  />
+                )}
+              </div>
               <p className="validator-hint mt-0 col-span-5 md:col-span-1">
                 Must be more than 6 characters, including number, lowercase
                 letter, uppercase letter
